@@ -2,8 +2,13 @@
 
 ## Steps for building a docker image
 
-From directory containing docker file: `docker build --tag <workdir_name> .` <br />
-To view images, run: `docker images` <br />
+From directory containing docker file: <br />
+`docker build --tag <workdir_name> .` <br />
+
+To view images, run:<br />
+ `docker images` <br />
+
+Docker run in detached mode: <br />
 `docker run -d -p 5000:5000 <workdir_name>` <br />
 
 To see running containers, use: <br />

@@ -1,0 +1,17 @@
+services:
+  app:
+    image: python-docker
+    command: # TODO
+    ports:
+      - 5000:5000
+    working_dir: # TODO
+    volumes:
+      - # TODO
+    environment: # TODO
+  
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    container_name: db
+    volumes: ~/mongo/data:/data/db # TODO - path needs to be modified
