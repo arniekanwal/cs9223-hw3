@@ -1,17 +1,43 @@
+version: "3.9"
 services:
-  app:
-    image: python-docker
-    command: # TODO
-    ports:
-      - 5000:5000
-    working_dir: # TODO
-    volumes:
-      - # TODO
-    environment: # TODO
-  
   db:
     image: mongo:latest
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_DATABASE: camp2016
+      MONGO_DATA_DIR: /data/db
+      MONGODB_LOG_DIR: /dev/null
     ports:
       - "27017:27017"
-    container_name: db
-    volumes: ~/mongo/data:/data/db # TODO - path needs to be modified
+    volumes:
+      - mongodbdata:/data/db
+    # networks:
+    #   - backend
+
+  flaskapp:
+    build: ./ToDo-App-CSGY-9223
+    container_name: flaskapp-container
+    image: arniekanwal/flaskapp:LATEST
+    restart: unless-stopped
+    environment:
+      MONGO_SERVICE_SERVICE_HOST: db
+      MONGO_SERVICE_SERVICE_PORT: 27017
+      FLASK_ENV: development
+    volumes:
+      - ./ToDo-App-CSGY-9223:/app
+    depends_on:
+      - db
+    ports:
+      - 8000:8000
+    # networks:
+    #   - backend
+
+# networks:
+#   backend:
+#     driver: bridge
+
+volumes:
+  mongodbdata:
+    driver: local
+  ToDo-App-CSGY-9223:
+    driver: local
