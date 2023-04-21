@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: flaskapp-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: flaskapp
@@ -14,6 +14,6 @@ spec:
     spec:
       containers:
       - name: flaskapp
-        image: <your-dockerhub-username>/<your-flaskapp-image>
+        image: arniekanwal/flaskapp
         ports:
         - containerPort: 8000
