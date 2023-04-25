@@ -5,7 +5,7 @@ metadata:
   labels:
     app: flaskapp
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: flaskapp
@@ -20,3 +20,15 @@ spec:
           ports:
             - containerPort: 8000
           imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 15
